@@ -14,7 +14,10 @@
     var lng2 = end.lng * d2r;
     var dLng = lng1-lng2;
 
-    var segments = Math.floor(Math.abs(dLng * earthR / this.options.segmentsCoeff));
+    var distance = Math.acos(
+      Math.sin(lat1) * Math.sin(lat2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.cos(-dLng));
+    var segments = Math.ceil(distance * earthR / segmentLength);
     if (segments < 2) { return; }
 
     // maths based on https://edwilliams.org/avform.htm#Int
